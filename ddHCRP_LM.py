@@ -27,6 +27,8 @@ class HCRP_LM:
         self.strength = strength
         self.n = len(strength) # order+1; 0th-order Markov model corresponds to 1-gram
 
+        self.dishes = []
+        self.number_of_dishes = len(self.dishes)
         self.rest_labels=[]
 
         self.n_samples = n_samples
