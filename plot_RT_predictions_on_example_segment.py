@@ -1,8 +1,16 @@
+import os, sys, inspect
 from HCRP_LM.ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2.5)
 
-df = pd.read_csv('data_and_model_predictions_session1-10_4levels_withMAP.csv')
+cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
+df = pd.read_csv(cwd+'data_and_model_predictions_session1-10_4levels_withMAP.csv')
+figdir = '\\figures_main'
+figpath = cwd + figdir
+if not os.path.exists(figpath):
+    os.makedirs(figpath)
+figpath = figpath+'\\'
 
 # subject = 104
 subject = 102
@@ -153,7 +161,7 @@ for _, spine in ax[2].spines.items():
 
 plt.tight_layout()
 plt.subplots_adjust(hspace=0.45)
-plt.savefig('trialbytrial_pred_example_late.png', transparent=True, dpi=600)
+plt.savefig(figdir + 'trialbytrial_pred_example_late.png', transparent=True, dpi=600)
 plt.close()
 #
 #

@@ -1,12 +1,11 @@
+import os, sys, inspect
 from HCRP_LM.ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2.5)
 plt.rcParams.update({'font.size': 18})
 plt.rcParams.update({'font.sans-serif': 'Calibri'})
 
-# import os, sys, inspect
-# currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-cwd = "D:\\noemi_nextcloud\\Documents\\Projects\\ASRT_modeling\\human_fit_extendedlearning\\"
+cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 figdir = '\\figures_main'
 figpath = cwd + figdir
 if not os.path.exists(figpath):

@@ -1,10 +1,11 @@
+import os, sys, inspect
 from HCRP_LM.ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2.5)
 plt.rcParams.update({'font.size': 18})
 plt.rcParams.update({'font.sans-serif': 'Calibri'})
 
-cwd = 'D:\\noemi_nextcloud\\Documents\\Projects\\ASRT_modeling\\human_fit_extendedlearning\\'
+cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 figdir = '\\figures_main'
 figpath = cwd + figdir
 if not os.path.exists(figpath):
@@ -13,8 +14,7 @@ figpath = figpath+'\\'
 
 # df = pd.read_csv(cwd + 'data_and_model_predictions_main.csv')  # less forgetful
 df = pd.read_csv(cwd + 'data_and_model_predictions_forgetful.csv')  # more forgetful
-# df = pd.read_csv(cwd + 'data_and_model_predictions_09.10.2021.csv')  # less forgetful
-#df = pd.read_csv('data_and_model_predictions_01.10.2021.csv')  # more forgetful
+
 choices = [1,2,3,4]
 HCRP_choice = np.zeros(len(df))
 trigram_choice = np.zeros(len(df))

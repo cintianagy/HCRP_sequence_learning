@@ -1,8 +1,12 @@
+import os, sys
 from HCRP_LM.ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=1.5)
 
-df = pd.read_csv('data.csv')
+cwd = os.getcwd()
+figdir = '\\figures_main'
+
+df = pd.read_csv(cwd + 'data.csv')
 df = df[df['TrialType']!='Prac']
 df['TrialType'] = df['TrialType'].replace({'P':'d', 'R':'r'})
 df['TT'] = df['TT'].replace({'X':'L', 'T':'L', 'R':'L'})

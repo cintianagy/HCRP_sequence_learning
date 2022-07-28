@@ -1,13 +1,12 @@
+import os, sys, inspect
 from HCRP_LM.ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2)
 
-cwd = "D:\\noemi_nextcloud\\Documents\\Projects\\ASRT_modeling\\human_fit_extendedlearning\\"
+cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
-# results = pd.read_csv(cwd + 'posterior_values_01.10.2021.csv')  # more forgetful
-# results = pd.read_csv('posterior_values_09.10.2021.csv')  # less forgetful
-# results = pd.read_csv(cwd + 'posterior_values_main.csv')  # more forgetful
-results = pd.read_csv(cwd + 'posterior_values_forgetful.csv')  # less forgetful
+# results = pd.read_csv(cwd + 'posterior_values_main.csv')
+results = pd.read_csv(cwd + 'posterior_values_forgetful.csv')
 results.columns = [x.replace('best_','') for x in results.columns]
 results = results[results['NLL']<10000000]
 parameters = list(results.columns[5:-1])

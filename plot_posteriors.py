@@ -1,3 +1,4 @@
+import os, sys, inspect
 from HCRP_LM.ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2.5)
@@ -8,9 +9,7 @@ import matplotlib.cm as cm
 from matplotlib.ticker import FormatStrFormatter
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
-# import os, sys, inspect
-# cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-cwd = "D:\\noemi_nextcloud\\Documents\\Projects\\ASRT_modeling\\human_fit_extendedlearning\\"
+cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 figdir = '\\figures_main'
 figpath = cwd + figdir
 if not os.path.exists(figpath):
