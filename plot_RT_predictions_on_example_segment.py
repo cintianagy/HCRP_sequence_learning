@@ -12,16 +12,12 @@ if not os.path.exists(figpath):
     os.makedirs(figpath)
 figpath = figpath+'\\'
 
-# subject = 104
 subject = 102
-#session = 3
 session = 11
 
 test_mask_generic       = [False] * 11 * 85 + [True] * 3 * 85 + [False] * 11 * 85
-#test_mask_generic       = [False] * 2 * 85 + [True] * 1 * 85 + [False] * 2 * 85
 
 df = df[(df['Subject'] == int(subject)) & (df['Session'] == int(session))][test_mask_generic][90:170][40:].reset_index()
-#df = df[(df['Subject'] == int(subject)) & (df['Session'] == int(session))][test_mask_generic][40:].reset_index()
 
 measured_RTs = df.measured_RT.values
 corpus       = df.event.values
