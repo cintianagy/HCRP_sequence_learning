@@ -1,6 +1,9 @@
 from ddHCRP_LM import *
-from UCRP_LM import *
-from SCRP_LM import *
+
+# UCRP_LM and SCRP_LM are candidate models requested by the Reviewers; not used here
+# from UCRP_LM import *
+# from SCRP_LM import *
+
 import _pickle as cPickle
 import os, sys, inspect
 import psutil
