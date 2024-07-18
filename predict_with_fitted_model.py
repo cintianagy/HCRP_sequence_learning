@@ -1,12 +1,12 @@
 import os, sys, inspect
-from HCRP_LM.ddHCRP_LM import *
+from ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2)
 
 cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
 # results = pd.read_csv(cwd + 'posterior_values_main.csv')
-results = pd.read_csv(cwd + 'posterior_values_forgetful.csv')
+results = pd.read_csv(cwd + '/' + 'posterior_values_ddHCRP_LM.csv')
 results.columns = [x.replace('best_','') for x in results.columns]
 results = results[results['NLL']<10000000]
 parameters = list(results.columns[5:-1])
@@ -27,7 +27,7 @@ MAP_data = pd.concat(MAP_data).drop('iteration', axis=1)
 
 ######################### CROSSVAL PREDICT ############################
 
-df = pd.read_csv(cwd + 'data.csv', dtype={'choice':str})
+df = pd.read_csv(cwd + '/' + 'data_101.csv', dtype={'choice':str})
 
 Session = []
 for i,r in df.iterrows():
@@ -259,4 +259,4 @@ for i, subject in enumerate(df.Subject.unique()):
 model_predictions = pd.DataFrame(model_predictions)[[col for col in model_predictions.keys() if col not in df.columns]]
 model_predictions.set_index('index', inplace=True)
 data = pd.merge(df, model_predictions, left_index=True, right_index=True)
-data.to_csv(cwd + 'data_and_model_predictions_forgetful.csv')
+data.to_csv(cwd + '/' + 'data_and_model_predictions_forgetful.csv')

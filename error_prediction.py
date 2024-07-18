@@ -1,5 +1,5 @@
 import os, sys, inspect
-from HCRP_LM.ddHCRP_LM import *
+from ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2.5)
 plt.rcParams.update({'font.size': 18})
@@ -13,7 +13,7 @@ if not os.path.exists(figpath):
 figpath = figpath+'\\'
 
 # df = pd.read_csv(cwd + 'data_and_model_predictions_main.csv')  # less forgetful
-df = pd.read_csv(cwd + 'data_and_model_predictions_forgetful.csv')  # more forgetful
+df = pd.read_csv(cwd + '/' + 'data_and_model_predictions_forgetful.csv')  # more forgetful
 
 choices = [1,2,3,4]
 HCRP_choice = np.zeros(len(df))
@@ -106,15 +106,15 @@ df['trigram_error_type']    = trigram_error_type
 
 df = pd.concat([df, error_types_binary, HCRP_error_types_binary, trigram_error_types_binary], axis=1)
 
-df.to_csv(cwd + 'error_data_forgetful.csv')
+df.to_csv(cwd + '/' + 'error_data_forgetful.csv')
 
 
 ################################################################################
 
 
-df = pd.read_csv(cwd + 'error_data_main.csv')
+#df = pd.read_csv(cwd + 'error_data_main.csv')
 df = df[df['Session']<=12]  ## only analyse sessions 1-8
-df_forgetful = pd.read_csv(cwd + 'error_data_01.10.2021.csv')  ## this fit was only run for sessions 1-8
+df_forgetful = pd.read_csv(cwd + '/' + 'error_data_forgetful.csv')  ## this fit was only run for sessions 1-8
 df['low-level + HCRP_forgetful'] = df_forgetful['low-level + HCRP'].values
 
 
@@ -259,7 +259,7 @@ handles = [plt.Rectangle((0,0),1,1, color=colors[label]) for label in labels]
 plt.legend(handles, labels, loc='center left', bbox_to_anchor=(1, 0.5), frameon=False)
 
 plt.tight_layout()
-plt.savefig(figpath + 'prediction_of_error_RTs.png', dpi=600, transparent=True)
+plt.savefig(figpath + '/' + 'prediction_of_error_RTs.png', dpi=600, transparent=True)
 plt.close()
 
 

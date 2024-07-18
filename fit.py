@@ -4,7 +4,7 @@ from ddHCRP_LM import *
 # from UCRP_LM import *
 # from SCRP_LM import *
 
-import _pickle as cPickle
+import pickle as cPickle
 import os, sys, inspect
 import psutil
 from scipy.stats import truncnorm
@@ -79,7 +79,7 @@ def fit(subject, iteration):
 
                 for param_search_iter in range(n_param_search_iter):
 
-                    m = UCRP_LM(
+                    m = HCRP_LM(
                                 # strength       = list(np.random.uniform(lower_strength, upper_strength, 4)),
                                 #decay_constant = list(np.random.uniform(start_lower_decay, start_upper_decay, 4))
                                 strength       = [np.random.uniform(lower_strength, upper_strength)]*4,
@@ -148,19 +148,25 @@ def fit(subject, iteration):
             with open(r"model_{s_i}.pickle".format(s_i=s_i), "wb") as output_file:
                  cPickle.dump(best_model, output_file)
 
-            results = results.append(pd.Series([subject, iteration, session, offline_dist]\
-                                                + copy.deepcopy(best_model.strength)\
-                                                + copy.deepcopy(best_model.decay_constant) \
-                                                + best_response_params\
-                                                + [min_NLL]),
-                                                ignore_index = True)
+            results_cols = ['subject', 'iteration', 'session', 'offline_dist'] \
+                + [f'best_strength_{x}' for x in range(1, 5)]  \
+                + [f'best_decayconstant_{x}' for x in range(1, 5)] \
+                + ['intercept', 'spatial_distance_coef', 'repetition_coef', 'error_coef', 'posterror_coef', 'prob_coef', 'NLL']
+            
+            results = [subject, iteration, session, offline_dist] \
+           + copy.deepcopy(best_model.strength) \
+           + copy.deepcopy(best_model.decay_constant) \
+           + best_response_params \
+           + [min_NLL]
+
+            results = pd.DataFrame([results], columns=results_cols)
             results.to_csv('{subject}_{iteration}.csv'.format(subject=subject, iteration = iteration), index = False)
 
     return results
 
 ################################################################################
 
-df = pd.read_csv('data.csv', dtype={'choice': str})
+df = pd.read_csv('data_101.csv', dtype={'choice': str})
 
 ### SETTINGS FOR MAIN RESULTS
 # start_lower_decay, start_upper_decay        = 1, 80
@@ -177,8 +183,8 @@ epoch_training_mask = [True] * 2 * 85 + [False] * 1 * 85 + [True] * 2 * 85
 lowlevel_predictors = ['spatial_distance', 'repetition', 'error', 'posterror']
 frozen              = False
 resp_noise          = 0.1  ## 0.2
-n_param_search_iter = 1000
-iterations          = range(2)
+n_param_search_iter = 1
+iterations          = range(1)
 subjects            = list(df.Subject.unique())
 print(subjects)
 subjects_iterations = [(s, i) for s in subjects for i in iterations]
@@ -208,14 +214,14 @@ if __name__ == '__main__':
     print('Pool created.')
     results = pool.starmap(fit, subjects_iterations)  # starmap is used because we have two arguments. It accepts a sequence of argument tuples, then automatically unpacks the arguments from each tuple and passes them to the given function.
     pool.close()
-    results = pd.concat(results)
-    results.columns = ['subject',\
+    results = pd.concat(results, ignore_index=True)
+    results.columns = [['subject',\
                         'iteration',\
                         'session',\
                         'offline_dist'] \
                         + ['best_strength_'+ str(x) for x in range(1,5)]  \
                         + ['best_decayconstant_'+ str(x) for x in range(1,5)] \
                         + ['intercept', 'spatial_distance_coef', 'repetition_coef', 'error_coef', 'posterror_coef', 'prob_coef'] \
-                        + ['NLL']
+                        + ['NLL']]
 
-    results.to_csv('posterior_values_UCRP.csv')
+    results.to_csv('posterior_values_ddHCRP_LM.csv')

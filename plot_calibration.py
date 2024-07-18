@@ -1,5 +1,5 @@
 import os, sys, inspect
-from HCRP_LM.ddHCRP_LM import *
+from ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2.5)
 plt.rcParams.update({'font.size': 18})
@@ -13,7 +13,7 @@ if not os.path.exists(figpath):
     os.makedirs(figpath)
 figpath = figpath+'\\'
 
-posteriors = pd.read_csv(cwd + 'posterior_values_main.csv', dtype= {'subject': np.int, 'session':np.int})
+posteriors = pd.read_csv(cwd + '/' + 'posterior_values_ddHCRP_LM.csv', dtype= {'subject': np.int_, 'session':np.int_})
 MAP_data=[]
 for subject in posteriors.subject.unique():
     NLL_sums = pd.pivot_table(data=posteriors[posteriors['subject']==subject], index='iteration', aggfunc=np.sum)['NLL']
@@ -24,7 +24,7 @@ MAP_data['session'] = MAP_data['session'] - 4
 MAP_data['session'] = MAP_data['session'].replace({-3:1, -2:1, -1:1, 0:1, 1:1})
 
 
-df = pd.read_csv(cwd +'data_and_model_predictions_main.csv')
+df = pd.read_csv(cwd + '/' + 'data_and_model_predictions_forgetful.csv')
 df = df[(df['firstACC']==1) & (df['TripC']!='XXX')]
 df['TT'] = df['TT'].replace({'T':'L', 'R':'L'})
 
@@ -586,5 +586,5 @@ ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
 
 f.tight_layout()
-f.savefig(figpath+'higherorder_calibration_plot_1_1.png', transparent=True)
+f.savefig(figpath+ '/' + 'higherorder_calibration_plot_1_1.png', transparent=True)
 plt.close()
