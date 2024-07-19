@@ -39,6 +39,8 @@ def fit(subject, iteration):
 
     subject_df = df[(df['Subject'] == int(subject))].reset_index(drop=True)
 
+    all_results = []
+
     #for offline_dist in range(starting_offline_dist, 100, 33):
     for offline_dist in [0]:
 
@@ -153,20 +155,22 @@ def fit(subject, iteration):
                 + [f'best_decayconstant_{x}' for x in range(1, 5)] \
                 + ['intercept', 'spatial_distance_coef', 'repetition_coef', 'error_coef', 'posterror_coef', 'prob_coef', 'NLL']
             
-            results = [subject, iteration, session, offline_dist] \
+            result = [subject, iteration, session, offline_dist] \
            + copy.deepcopy(best_model.strength) \
            + copy.deepcopy(best_model.decay_constant) \
            + best_response_params \
            + [min_NLL]
 
-            results = pd.DataFrame([results], columns=results_cols)
+            all_results.append(result)
+
+            results = pd.DataFrame(all_results, columns=results_cols)
             results.to_csv('{subject}_{iteration}.csv'.format(subject=subject, iteration = iteration), index = False)
 
     return results
 
 ################################################################################
 
-df = pd.read_csv('data_101.csv', dtype={'choice': str})
+df = pd.read_csv('data_101_102.csv', dtype={'choice': str})
 
 ### SETTINGS FOR MAIN RESULTS
 # start_lower_decay, start_upper_decay        = 1, 80
@@ -183,8 +187,8 @@ epoch_training_mask = [True] * 2 * 85 + [False] * 1 * 85 + [True] * 2 * 85
 lowlevel_predictors = ['spatial_distance', 'repetition', 'error', 'posterror']
 frozen              = False
 resp_noise          = 0.1  ## 0.2
-n_param_search_iter = 1
-iterations          = range(1)
+n_param_search_iter = 2
+iterations          = range(2)
 subjects            = list(df.Subject.unique())
 print(subjects)
 subjects_iterations = [(s, i) for s in subjects for i in iterations]

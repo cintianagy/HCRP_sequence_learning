@@ -1,5 +1,5 @@
 import os, sys, inspect
-from HCRP_LM.ddHCRP_LM import *
+from ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2.5)
 plt.rcParams.update({'font.size': 18})
@@ -27,7 +27,7 @@ session_ticks_shown = [3,8,13,18,23,28,33,38,43,47.5]
 session_boundaries = [5.5, 10.5, 15.5, 20.5, 25.5, 30.5, 35.5]
 session_widths = np.array([1,1,1,1,1,5,5,5,5,5,5,5,1,1,1,1,1,1,1,1,1])*12
 
-df = pd.read_csv(cwd + 'data_and_model_predictions_main.csv')
+df = pd.read_csv(cwd + '/' + 'data_and_model_predictions_forgetful.csv')
 #HMM_df = pd.read_csv('data_and_HMMmodel_predictions_29.06.2021.csv')
 #df = pd.merge(df, HMM_df[['HMM_component', 'low-level + HMM']], left_index=True, right_index=True)
 
@@ -90,7 +90,7 @@ for subject in df.Subject.unique():
                 # BIC = compute_BIC(len(filt_subdf.measured_RT.values), model_n_params[model], NLL)
 
                 #scores = scores.append(pd.Series([subject, session, model, evaluation, r2, NLL, AIC, BIC]), ignore_index=True)
-                scores = scores.append(pd.Series([subject, session, model, evaluation, r2]), ignore_index=True)
+                scores = pd.concat([scores, pd.Series([subject, session, model, evaluation, r2])], ignore_index=True)
 
 
 #scores.columns = ['subject', 'session', 'model', 'evaluation', 'r2', 'NLL', 'AIC', 'BIC']
@@ -125,7 +125,7 @@ ax.set_ylim(0, 0.4)
 ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
 plt.tight_layout()
-plt.savefig(figpath+'test_predictive_performance_of_HCRP_vs_triplet.png', transparent=True, dpi=600)
+plt.savefig(figpath+ '/' + 'test_predictive_performance_of_HCRP_vs_triplet.png', transparent=True, dpi=600)
 # plt.savefig(figpath+'test_predictive_performance.png', transparent=True, dpi=600)
 plt.close()
 #

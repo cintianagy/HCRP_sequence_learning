@@ -1,11 +1,11 @@
 import os, sys, inspect
-from HCRP_LM.ddHCRP_LM import *
+from ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2.5)
 
 cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
-df = pd.read_csv(cwd+'data_and_model_predictions_session1-10_4levels_withMAP.csv')
+df = pd.read_csv(cwd+ '/' + 'data_and_model_predictions_session1-10_4levels_withMAP.csv')
 figdir = '\\figures_main'
 figpath = cwd + figdir
 if not os.path.exists(figpath):

@@ -1,5 +1,5 @@
 import os, sys, inspect
-from HCRP_LM.ddHCRP_LM import *
+from ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2.5)
 plt.rcParams.update({'font.size': 18})
@@ -18,7 +18,7 @@ figpath = figpath+'\\'
 
 n_levels = 4
 
-results = pd.read_csv(cwd + 'posterior_values_main.csv', dtype= {'subject': np.int, 'session':np.int})
+results = pd.read_csv(cwd + '/' + 'posterior_values_ddHCRP_LM.csv', dtype= {'subject': np.int_, 'session':np.int_})
 
 results.columns = [x.replace('best_','') for x in results.columns]
 #results = results.drop('iteration', axis=1)
@@ -71,7 +71,7 @@ MAP_means = pd.pivot_table(data=MAP_data, index='session')
 strength_data = MAP_means[['strength_'+str(x) for x in range(1,n_levels+1)]]
 decay_data = 1/MAP_means[['decayconstant_'+str(x) for x in range(1,n_levels+1)]]
 
-df = pd.read_csv(cwd + 'data_and_model_predictions_main.csv')
+df = pd.read_csv(cwd + '/' + 'data_and_model_predictions_forgetful.csv')
 # seat_odds = df[['HCRP_seat_odds_'+str(i+1) for i in range(n_levels)]].values
 # row_sums = seat_odds.sum(axis=1)
 # row_sums[row_sums == 0] = 0.01
@@ -204,7 +204,7 @@ for level in range(1,n_levels+1):
             ax[j].set_xlim(min(session_ticks)-0.5, max(session_ticks)+0.5)
             ax[j].set_ylim(-0.2,n_levels)
             ax[j].set_xticks(session_ticks_shown)
-            ax[j].set_xticklabels(range(1,9))
+            ax[j].set_xticklabels(range(1,11))
             ax[j].set_yticks(np.array(range(1,n_levels+1))-0.5)
             ax[j].set_yticklabels([])
             ax[j].set_yticklabels([])

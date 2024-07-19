@@ -1,5 +1,5 @@
 import os, sys, inspect
-from HCRP_LM.ddHCRP_LM import *
+from ddHCRP_LM import *
 pd.options.mode.chained_assignment = None  # default='warn'
 sns.set(style="white",context='paper',font_scale=2)
 plt.rcParams.update({'font.size': 18})
@@ -7,7 +7,7 @@ plt.rcParams.update({'font.sans-serif': 'Calibri'})
 
 cwd = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 figdir = '\\figures_main'
-df = pd.read_csv(cwd + 'data_and_model_predictions_01.10.2021.csv')
+df = pd.read_csv(cwd + '/' + 'data_and_model_predictions_forgetful.csv')
 df = df[df['TT']!='X']
 df['TT'] = df['TT'].replace({'T':'L', 'R':'L'})
 
