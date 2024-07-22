@@ -276,14 +276,14 @@ scipy.stats.ttest_rel(d[(d['variable']=='measured_RT')&(d[error_type]==0)].value
 scipy.stats.ttest_rel(d[(d['variable']=='low-level + HCRP')&(d[error_type]==0)].value, d[(d['variable']=='low-level + HCRP')&(d[error_type]==1)].value)
 scipy.stats.ttest_rel(d[(d['variable']=='low-level + triplet')&(d[error_type]==0)].value, d[(d['variable']=='low-level + triplet')&(d[error_type]==1)].value)
 
-d[(d['variable']=='measured_RT')&(d[error_type]==0)].mean() -  d[(d['variable']=='measured_RT')&(d[error_type]==1)].mean()
-d[(d['variable']=='low-level + HCRP')&(d[error_type]==0)].mean() - d[(d['variable']=='low-level + HCRP')&(d[error_type]==1)].mean()
-d[(d['variable']=='low-level + triplet')&(d[error_type]==0)].mean() - d[(d['variable']=='low-level + triplet')&(d[error_type]==1)].mean()
+# d[(d['variable']=='measured_RT')&(d[error_type]==0)].mean() -  d[(d['variable']=='measured_RT')&(d[error_type]==1)].mean()
+# d[(d['variable']=='low-level + HCRP')&(d[error_type]==0)].mean() - d[(d['variable']=='low-level + HCRP')&(d[error_type]==1)].mean()
+# d[(d['variable']=='low-level + triplet')&(d[error_type]==0)].mean() - d[(d['variable']=='low-level + triplet')&(d[error_type]==1)].mean()
 
 
 
 
-data = pd.DataFrame(data[data['State']=='R'][['measured RT','predicted RT']].values - data[data['State']=='P'][['measured RT','predicted RT']].values, columns=['measured', 'predicted'])
+#data = pd.DataFrame(data[data['State']=='R'][['measured RT','predicted RT']].values - data[data['State']=='P'][['measured RT','predicted RT']].values, columns=['measured', 'predicted'])
 
 sns.barplot(data=df[(df['firstACC']==1) | (df['other error']==1)], x='firstACC', y='distance_from_last_unigram')
 plt.show()

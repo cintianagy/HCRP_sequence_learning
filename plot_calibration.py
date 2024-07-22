@@ -56,8 +56,8 @@ df['P(trigram_old)'] = df['P(trigram_old)'].replace({0:'L', 1:'H'})
 df['P(trigram_new)'] = df['P(trigram_new)'].replace({0:'L', 1:'H'})
 df['trial type'] = (df['State'] + df['P(trigram)']).replace({'PH':'d', 'RH':'rH', 'RL':'rL'})
 df['P(trigram)'] = df['P(trigram)'].replace({'T':'L','R':'L','X':'L'})
-df['Session'] = df['Session'] - 4
-df['Session'] = df['Session'].replace({-3:1, -2:1, -1:1, 0:1, 1:1})
+#df['Session'] = df['Session'] - 4
+#df['Session'] = df['Session'].replace({-3:1, -2:1, -1:1, 0:1, 1:1})
 
 
 session_ticks = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]

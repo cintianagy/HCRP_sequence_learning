@@ -27,7 +27,7 @@ MAP_data = pd.concat(MAP_data).drop('iteration', axis=1)
 
 ######################### CROSSVAL PREDICT ############################
 
-df = pd.read_csv(cwd + '/' + 'data_101.csv', dtype={'choice':str})
+df = pd.read_csv(cwd + '/' + 'data_101_102.csv', dtype={'choice':str})
 
 Session = []
 for i,r in df.iterrows():
